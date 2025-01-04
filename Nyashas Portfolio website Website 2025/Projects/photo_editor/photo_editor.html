@@ -1,0 +1,175 @@
+<html>
+  <head>
+    <title>Photo Editor</title>
+    <link rel="stylesheet" href="photo_editor.css" />
+     <script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'>
+ </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Bubblegum+Sans|Special+Elite|Alfa+Slab+One|Cabin+Sketch|Lobster|Luckiest+Guy|Passion+One|Zilla+Slab+Highlight|Pacifico"
+      rel="stylesheet"
+    />
+    
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Matemasie&family=Pacifico&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    
+  </head>
+
+  <body>
+    <a href="/My Website/home.html" id="going_home">home</a>
+
+    <img class="logo" src="images/camera.png" />
+    <h1>Photo editor</h1>
+    <div class="container">
+      <div id="editor">
+        <form id="imageForm">
+          <h1>Choose photo</h1>
+          <p>Pick an image of your choice:</p>
+          <input
+            type="radio"
+            id="image1"
+            name="image"
+            class="imageInput"
+            value="night.jpg"
+            required
+          />
+          <label for="image1"
+            ><img class="thumbnail" src="night.jpg"
+          /></label>
+
+          <input
+            type="radio"
+            id="image2"
+            name="image"
+            class="imageInput"
+            value="brick.jpg"
+          />
+          <label for="image2"
+            ><img class="thumbnail" src="brick.jpg"
+          /></label>
+
+          <input
+            type="radio"
+            id="image3"
+            name="image"
+            class="imageInput"
+            value="cat.jpg"
+          />
+          <label for="image3"
+            ><img class="thumbnail" src="cat.jpg"
+          /></label>
+
+          <input
+            type="radio"
+            id="image4"
+            name="image"
+            class="imageInput"
+            value="day.jpg"
+          />
+          <label for="image4"
+            ><img class="thumbnail" src="day.jpg"
+          /></label>
+
+          <input
+            type="radio"
+            id="image5"
+            name="image"
+            class="imageInput"
+            value="dog.jpg"
+          />
+          <label for="image5"
+            ><img class="thumbnail" src="dog.jpg"
+          /></label>
+
+          <input
+            type="radio"
+            id="image6"
+            name="image"
+            class="imageInput"
+            value="forest.jpg"
+          />
+          <label for="image6"
+            ><img class="thumbnail" src="forest.jpg"
+          /></label>
+
+          <input type="submit" value="Next" />
+        </form>
+        <form id="captionForm">
+          <h1>Edit photo</h1>
+          <label for="captionInput">Enter the text:</label>
+          <input type="text" id="captionInput" class="textInput" required />
+          <label for="fontSize">Font Size:</label>
+          <input type="number" id="fontSize" min="12" max="80" />
+          <label for="fontColor">Color:</label>
+          <input type="color" id="fontColor" />
+         
+          <select id="font">
+    <option style=" font-family: 'Pacifico', cursive;  font-weight: 400;  font-style: normal;">Pacifico</option>
+    <option style="font-family: 'Matemasie', system-ui;  font-weight: 400;  font-style: normal;">Metemasie</option>
+    <option style="font-family: 'Roboto Mono', monospace;  font-optical-sizing: auto; font-style: normal;">Roboto</option>
+    <option style="  font-family: 'DM Serif Text', serif;  font-weight: 400;  font-style: normal;">DF Serif</option>
+</select>
+          
+          <input type="submit" value="Add text" />
+        </form>
+         <div id="stickerContainer">
+ <h1> Choose sticker </h1>
+ <img class='sticker' src='images/s1.png'>
+ <img class='sticker' src='images/s2.png'>
+ <img class='sticker' src='images/s3.png'>
+ </div>
+
+      </div>
+      <div id="canvas">
+        <img src="brick.jpg" id="preview" />
+        <p class="caption"></p>
+      </div>
+    </div>
+
+    <script>
+      $("#captionForm").hide();
+$('#stickerContainer').hide();
+      function pickImage(eventObj) {
+        eventObj.preventDefault();
+        var image = $(".imageInput:checked").val();
+        $("#preview").attr("src", image);
+        $("#imageForm").hide();
+        $("#captionForm").show();
+         $('#stickerContainer').show();
+
+      }
+      $("#imageForm").submit(pickImage);
+
+      function addText(eventObj) {
+       
+        eventObj.preventDefault();
+        var caption = $("#captionInput").val();
+        $(".caption").text(caption);
+        $(".caption").draggable();
+
+        var size = $("#fontSize").val();
+        var color = $("#fontColor").val();
+         var fontVal = $('#font').val();
+        var cssObj = {
+          "font-size": size,
+          color: color,
+          "font-family": fontVal,
+        };
+        $(".caption").css(cssObj);
+      }
+      $("#captionForm").submit(addText);
+      $('.caption').draggable();
+      
+      function addSticker(eventObj) {
+ eventObj.preventDefault();
+ var clicked = eventObj.target;
+ var sticker = $(clicked).attr('src');
+ $('#canvas').append("<img src="+ sticker + " class='canvasSticker'>");
+ $('.canvasSticker').draggable();
+}
+      $('.sticker').click(addSticker)
+    </script>
+  </body>
+</html>
